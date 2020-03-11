@@ -1,33 +1,51 @@
-import React from 'react';
-import PropTypes from "prop-types";
+import React, { Component } from 'react';
+
+const App = () => (<Counter></Counter>)
+
+class Counter extends Component {
+  //初期化処理：classが呼び出された時に実行される
+  constructor(props){
+    super(props)
+    console.log(this.state);
+    this.state = {count : 10}
+  }
+
+  handlePlusButton = () => {
+    // console.log("handlePlusButton")
+    // console.log(this.state.count)
+    // const count = this.state.count;
+    // if(count < 1){
+    //   this.setState({count: 10})
+    // }else{
+      // }
+      this.setState({count: this.state.count + 1})
+    // this.state.count = this.state.count + 1;
+  }
+
+  handleMinusButton = () => {
+    // console.log("handlePlusButton")
+    // console.log(this.state.count)
+    // const count = this.state.count;
+    // if(count < 1){
+    //   this.setState({count: 10})
+    // }else{
+    // }
+    this.setState({count: this.state.count - 1})
+    // this.state.count = this.state.count + 1;
+  }
 
 
-
-const App = () => {
-  const profiles = [
-     { name:"Taro", age:10 }
-    ,{ name:"Hanako", age:5 }
-    ,{ name:"TEST", age:3 }
-    ,{ name:"NoName", age:4 }
-  ]
-  return(
-    <div>
-      {
-        profiles.map((profile,index) => {
-          return <User name={profile.name} age={profile.age} key={index} />
-        })
-      }
-    </div>
-  )
+  render(){
+    console.log("render")
+    return (
+    <React.Fragment>
+      <p>count:{this.state.count}</p>
+      <p><button onClick={this.handlePlusButton}>+1</button></p>
+      <p><button onClick={this.handleMinusButton}>-1</button></p>
+    </React.Fragment>
+    )
+  }
 }
 
-const User = (props) => {
-return <h2>I am {props.name}! and {props.age} years old!</h2>
-}
-
-User.propTypes = {
-  name: PropTypes.string,
-  age: PropTypes.number.isRequired
-}
 
 export default App;
