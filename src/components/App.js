@@ -1,51 +1,41 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 
-const App = () => (<Counter></Counter>)
-
-class Counter extends Component {
-  //初期化処理：classが呼び出された時に実行される
-  constructor(props){
-    super(props)
-    console.log(this.state);
-    this.state = {count : 10}
-  }
-
-  handlePlusButton = () => {
-    // console.log("handlePlusButton")
-    // console.log(this.state.count)
-    // const count = this.state.count;
-    // if(count < 1){
-    //   this.setState({count: 10})
-    // }else{
-      // }
-      this.setState({count: this.state.count + 1})
-    // this.state.count = this.state.count + 1;
-  }
-
-  handleMinusButton = () => {
-    // console.log("handlePlusButton")
-    // console.log(this.state.count)
-    // const count = this.state.count;
-    // if(count < 1){
-    //   this.setState({count: 10})
-    // }else{
-    // }
-    this.setState({count: this.state.count - 1})
-    // this.state.count = this.state.count + 1;
-  }
+import {increment,decrement} from "../actions"
 
 
+class App extends Component {
   render(){
-    console.log("render")
+    const props = this.props
+
     return (
     <React.Fragment>
-      <p>count:{this.state.count}</p>
-      <p><button onClick={this.handlePlusButton}>+1</button></p>
-      <p><button onClick={this.handleMinusButton}>-1</button></p>
+      <p>value:{ props.value }</p>
+      <p><button onClick={props.increment}>+1</button></p>
+      <p><button onClick={props.decrement}>-1</button></p>
     </React.Fragment>
     )
   }
 }
 
+//mapStateToProps
+//Stateの情報からコンポーネントに必要な物を取り出してコンポーネント内のpropsにマッピングする
+//変数は状態を表すstate
+//どういうオブジェクトをpropsとして返すか関数の戻り値として定義する
 
-export default App;
+const mapStateToProps = state =>({value:state.count.value});
+
+//mapDispatchToProps
+//actionが発生した時にreducerにtype別の状態遷移を実行させる
+
+// const mapDispatchToProps = dispatch => ({
+//   increment: () => dispatch(increment()),
+//   decrement: () => dispatch(decrement())
+// })
+// ↓ShortHand
+const mapDispatchToProps = ({increment,decrement})
+
+export default connect(mapStateToProps,mapDispatchToProps)(App)
+
+
+// export default App;
