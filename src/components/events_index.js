@@ -1,26 +1,49 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
+import _ from 'lodash'
+import { Link } from 'react-router-dom'
 
-import {increment,decrement} from "../actions"
+import {readEvents} from "../actions"
 
 
 class EventsIndex extends Component {
+  //Componentのマウント後の処理
   componentDidMount(){
-    console.log("hi!")
     //イベント一覧画面
     //外部のAPIにアクセスして一覧を取得
     this.props.readEvents()
   }
 
+  renderEvents(){
+    return _.map(this.props.events,event => (
+      <tr key={event.id}>
+        <td>{event.id}</td>
+        <td>{event.title}</td>
+        <td>{event.body}</td>
+      </tr>
+    ))
+  }
+
   render(){
-    const props = this.props
+    // const props = this.props
 
     return (
-    <React.Fragment>
-      <p>value:{ props.value }</p>
-      <p><button onClick={props.increment}>+1</button></p>
-      <p><button onClick={props.decrement}>-1</button></p>
-    </React.Fragment>
+      <React.Fragment>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Body</th>
+          </tr>
+        </thead>
+        <tbody>
+          {this.renderEvents()}
+        </tbody>
+      </table>
+
+      <Link to='/events/new'>NewEvent</Link>
+      </React.Fragment>
     )
   }
 }
@@ -30,7 +53,7 @@ class EventsIndex extends Component {
 //変数は状態を表すstate
 //どういうオブジェクトをpropsとして返すか関数の戻り値として定義する
 
-const mapStateToProps = state =>({value:state.count.value});
+const mapStateToProps = state =>({ events: state.events });
 
 //mapDispatchToProps
 //actionが発生した時にreducerにtype別の状態遷移を実行させる
@@ -40,7 +63,7 @@ const mapStateToProps = state =>({value:state.count.value});
 //   decrement: () => dispatch(decrement())
 // })
 // ↓ShortHand
-const mapDispatchToProps = ({readEvents})
+const mapDispatchToProps = ({ readEvents })
 
 export default connect(mapStateToProps,mapDispatchToProps)(EventsIndex)
 
