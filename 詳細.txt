@@ -53,3 +53,92 @@ index.js
 count.js
 stateの初期値をオブジェクトとして定義
 初期状態のstateはinitialState
+
+
+
+//REDUX実践
+登場人物
+ークライアント（ブラウザ）
+ー静的サーバー（FireBase）
+ーAPIサーバー（Heroku）
+
+イベント管理アプリケーション
+CRUD（クラッド）
+Create
+Read
+Update
+Delete
+
+
+・APIサーバーの挙動
+
+全て取得
+curl --request GET --url \
+'https://udemy-utils.herokuapp.com/api/v1/events?token=token123'
+
+
+1番のみ
+curl --request GET --url \
+'https://udemy-utils.herokuapp.com/api/v1/events/1?token=token123'
+
+データを作成（POST Request）
+curl --request POST \
+--url 'https://udemy-utils.herokuapp.com/api/v1/events?token=token123' \
+--header 'Content-Type: application/json' \
+--data '{
+  "title":"event 11",
+  "body":"body for event 11"
+}'
+
+更新
+curl --request PUT \
+--url 'https://udemy-utils.herokuapp.com/api/v1/events/1?token=token123' \
+--header 'Content-Type: application/json' \
+--data '{
+  "title":"change title",
+  "body":"change body"
+}'
+
+削除
+curl --request DELETE \
+--url 'https://udemy-utils.herokuapp.com/api/v1/events/1?token=token123' \
+--header 'Content-Type: application/json' \
+
+
+・外部APIサーバーにhtmlリクエストを送るための便利なライブラリ
+yarn add axios
+
+・reduxのaction-creator非同期処理を実装するためのライブラリ
+yarn add redux-thunk
+
+//非同期処理を行いたいが
+//ピュアなオブジェクトを返す必要がある
+//redux-thunkを利用する
+//actionの代わりに関数を返すことができる
+
+
+//
+evens.js
+
+// [
+//   {"id":1,"title":"Let's have an event 1!","body":"This is the body for event 1."},
+//   {"id":2,"title":"Let's have an event 2!","body":"This is the body for event 2."}
+// ]
+// 下記に変換する方がアクセシビリティが良くなる
+// lodashを利用する
+// {
+//   1:{"title":"Let's have an event 1!","body":"This is the body for event 1."},
+//   2:{"title":"Let's have an event 2!","body":"This is the body for event 2."}
+// }
+
+
+//画面遷移のリンク機能
+yarn add react-router-dom
+
+//フォーム
+yarn add redux-form
+
+
+//リンク実装
+//デバックしやすくするツール
+yarn add redux-devtools-extension
