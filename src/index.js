@@ -6,6 +6,9 @@ import thunk from 'redux-thunk';
 import { BrowserRouter,Route,Switch } from 'react-router-dom'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
+//MI
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 import './index.css';
 import reducer from "./reducers";
 //コンポーネント用
@@ -29,16 +32,18 @@ const store = createStore(reducer,enhancer);
 //どの階層からでもstore（provider）を利用してアクセスできる
 
 ReactDOM.render(
-<Provider store={store}>
-  <BrowserRouter>
-    <Switch>
-      <Route path="/events/new" component={EventsNew} />
-      <Route path="/events/:id" component={EventsShow} />
-      <Route exact path="/" component={EventsIndex} />
-      <Route exact path="/events" component={EventsIndex} />
-    </Switch>
-  </BrowserRouter>
-</Provider>
+  <MuiThemeProvider>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Switch>
+          <Route path="/events/new" component={EventsNew} />
+          <Route path="/events/:id" component={EventsShow} />
+          <Route exact path="/" component={EventsIndex} />
+          <Route exact path="/events" component={EventsIndex} />
+        </Switch>
+      </BrowserRouter>
+    </Provider>
+  </MuiThemeProvider>
 , document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
